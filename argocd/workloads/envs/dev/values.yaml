@@ -1,0 +1,8 @@
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/superorbital/aws-eks-blueprint-examples
+    targetRevision: main
+  ingress:
+    host: dev.example.com

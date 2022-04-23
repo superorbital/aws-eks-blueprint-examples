@@ -1,0 +1,27 @@
+{{- if and (.Values.ingressNginx) (.Values.ingressNginx.enable) -}}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx 
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io    
+spec:
+  project: default
+  source:
+    repoURL: {{ .Values.repo_url }}
+    path: argocd/addons/add-ons/ingress-nginx
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nginx
+  syncPolicy:
+    automated:
+      prune: true    
+    retry:
+      limit: 1
+      backoff:
+        duration: 5s 
+        factor: 2 
+        maxDuration: 1m  
+{{- end -}}

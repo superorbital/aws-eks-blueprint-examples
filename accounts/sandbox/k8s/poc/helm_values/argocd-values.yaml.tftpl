@@ -1,0 +1,39 @@
+# See:
+# // https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/values.yaml
+#
+# This is a template, so we can get values from terraform. 
+#
+
+applicationSet:
+  nodeSelector: ${jsonencode({ for ns_key, ns_value in nodeSelector : ns_key => ns_value })}
+
+controller:
+  enableStatefulSet: true
+  nodeSelector: ${jsonencode({ for ns_key, ns_value in nodeSelector : ns_key => ns_value })}
+
+dex:
+  nodeSelector: ${jsonencode({ for ns_key, ns_value in nodeSelector : ns_key => ns_value })}
+
+redis:
+  nodeSelector: ${jsonencode({ for ns_key, ns_value in nodeSelector : ns_key => ns_value })}
+
+redis-ha:
+  enabled: true
+
+repoServer:
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+  nodeSelector: ${jsonencode({ for ns_key, ns_value in nodeSelector : ns_key => ns_value })}
+
+server:
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+  nodeSelector: ${jsonencode({ for ns_key, ns_value in nodeSelector : ns_key => ns_value })}
+
+notifications:
+  nodeSelector: ${jsonencode({ for ns_key, ns_value in nodeSelector : ns_key => ns_value })}
+  bots:
+    slack:
+      nodeSelector: ${jsonencode({ for ns_key, ns_value in nodeSelector : ns_key => ns_value })}

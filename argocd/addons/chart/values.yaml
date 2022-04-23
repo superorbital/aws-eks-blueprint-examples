@@ -1,0 +1,134 @@
+# Global Values
+repo_url: "https://github.com/superorbital/aws-eks-blueprint-examples"
+region: ""
+account: ""
+clusterName: ""
+
+# Agones Values
+agones: 
+  enable: false 
+
+# App Mesh Values
+appMesh: 
+  enable: false 
+
+# Calico Values
+awsCalico:
+  enable: false
+
+# AWS CloudWatch Metrics Values
+awsCloudWatchMetrics:
+  enable: false
+  serviceAccountName:
+
+# AWS EFS CSI Driver Values
+awsEfsCsiDriver:
+  enable: false
+  serviceAccountName:
+
+# AWS for Fluent Bit Values
+awsForFluentBit:
+  enable: false
+  logGroupName:
+
+# AWS Load Balancer Controller Values
+awsLoadBalancerController:
+  enable: false
+  serviceAccountName:
+
+# AWS Otel Collector Values
+awsOtelCollector:
+  enable: false
+
+# Cert Manager Values
+certManager:
+  enable: false
+  serviceAccountName:
+
+# Cluster Autoscaler Values
+clusterAutoscaler:
+  enable: false
+  serviceAccountName:
+
+# External DNS Values
+externalDns:
+  enable: false
+  zoneIdFilters: []
+
+# Gatekeeper Values
+gatekeeper: 
+  enable: false
+
+# Nginx Values
+ingressNginx:
+  enable: false
+
+# Karpenter Values
+karpenter: 
+  enable: false
+  serviceAccountName:
+  controllerClusterEndpoint:
+  awsDefaultInstanceProfile:
+
+# Keda Values
+keda: 
+  enable: false
+  serviceAccountName:
+
+# Metrics Server Values
+metricsServer:
+  enable: false
+
+# Ondat Values
+ondat:
+  enable: false
+  serviceAccountName:
+  clusterSecretRefName:
+  clusterAdminUsername:
+  clusterAdminPassword:
+  clusterKvBackendAddress:
+  clusterKvBackendTLSSecretName:
+  clusterKvBackendTLSSecretNamespace:
+  clusterNodeSelectorTermKey:
+  clusterNodeSelectorTermValue:
+
+# Prometheus Values
+prometheus:
+  enable: false
+  serviceAccountName:
+  roleArn: 
+  ampWorkspaceUrl:
+
+# Metrics Server Values
+sparkOperator:
+  enable: false
+
+# Tetrate Istio Values
+tetrateIstio:
+  enable: false
+
+# Traefik Values
+traefik:
+  enable: false
+
+# VPA Values
+vpa: 
+  enable: false
+
+# Yunikorn Values
+yunikorn: 
+  enable: false
+
+# Argo Rollout Values
+argoRollouts:
+  enable: false
+
+# Kube State Metrics Values
+kubeStateMetrics:
+  enable: false
+  serviceAccountName:
+
+# Kubernetes Dashboard Values
+kubernetesDashboard:
+  enable: false
+  serviceAccountName:
