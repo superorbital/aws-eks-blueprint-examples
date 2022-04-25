@@ -53,8 +53,7 @@ module "k8s-addons" {
   enable_aws_node_termination_handler = true
   enable_cluster_autoscaler           = true
   enable_prometheus                   = true
-  // Disabled for the moment due to this bug:
-  // https://github.com/aws-ia/terraform-aws-eks-blueprints/issues/463
-  //enable_kubernetes_dashboard         = true
+  // Note: This addon does not currently work in EKS 1.22 (2022-04-25)
+  enable_kubernetes_dashboard         = true
 
 }
