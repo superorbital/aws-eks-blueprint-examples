@@ -1,5 +1,5 @@
 # See:
-# // https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/values.yaml
+# https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/values.yaml
 #
 # This is a template, so we can get values from terraform. 
 #
@@ -10,15 +10,24 @@ applicationSet:
 controller:
   enableStatefulSet: true
   nodeSelector: ${jsonencode({ for ns_key, ns_value in nodeSelector : ns_key => ns_value })}
+  args:
+    # Some important controller arguments that can be overridden by the user
+    statusProcessors: "20"
+    operationProcessors: "10"
+    appResyncPeriod: "360"
+    selfHealTimeout: "5"
+    repoServerTimeoutSeconds: "240"
 
 dex:
   nodeSelector: ${jsonencode({ for ns_key, ns_value in nodeSelector : ns_key => ns_value })}
 
 redis:
+  enabled: true
   nodeSelector: ${jsonencode({ for ns_key, ns_value in nodeSelector : ns_key => ns_value })}
 
+# One could use externalRedis (e.g. AWS ElasticCache) as well.
 redis-ha:
-  enabled: true
+  enabled: false
 
 repoServer:
   autoscaling:

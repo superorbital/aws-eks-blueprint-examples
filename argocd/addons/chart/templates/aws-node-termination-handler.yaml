@@ -1,0 +1,35 @@
+{{- if and (.Values.awsNodeTerminationHandler) (.Values.awsNodeTerminationHandler.enable) -}}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: aws-node-termination-handler
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: {{ .Values.repo_url }}
+    path: argocd/addons/add-ons/aws-node-termination-handler
+    targetRevision: HEAD
+    helm:
+      parameters:
+      - name: aws-node-termination-handler.clusterName
+        value: {{ .Values.clusterName }}
+      - name: aws-node-termination-handler.region
+        value: {{ .Values.region }}
+      - name: aws-node-termination-handler.serviceAccount.name
+        value: {{ .Values.awsNodeTerminationHandler.serviceAccountName }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+    retry:
+      limit: 1
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 1m
+{{- end -}}

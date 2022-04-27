@@ -50,10 +50,26 @@ module "k8s-addons" {
   }
 
   enable_aws_load_balancer_controller = true
+  aws_load_balancer_controller_helm_config = {
+    version          = "1.4.1"
+  }
+
   enable_aws_node_termination_handler = true
+
   enable_cluster_autoscaler           = true
+  cluster_autoscaler_helm_config = {
+    version          = "9.18.0"
+  }
+
   enable_prometheus                   = true
+  prometheus_helm_config = {
+    version          = "15.8.5"
+  }
+
   // Note: This addon does not currently work in EKS 1.22 (2022-04-25)
   enable_kubernetes_dashboard         = true
+  kubernetes_dashboard_helm_config = {
+    version          = "5.4.1"
+  }
 
 }

@@ -5,12 +5,12 @@ account: ""
 clusterName: ""
 
 # Agones Values
-agones: 
-  enable: false 
+agones:
+  enable: false
 
 # App Mesh Values
-appMesh: 
-  enable: false 
+appMesh:
+  enable: false
 
 # Calico Values
 awsCalico:
@@ -36,6 +36,11 @@ awsLoadBalancerController:
   enable: false
   serviceAccountName:
 
+# AWS Node Termination Handler Values
+awsNodeTerminationHandler:
+  enable: false
+  serviceAccountName:
+
 # AWS Otel Collector Values
 awsOtelCollector:
   enable: false
@@ -56,7 +61,7 @@ externalDns:
   zoneIdFilters: []
 
 # Gatekeeper Values
-gatekeeper: 
+gatekeeper:
   enable: false
 
 # Nginx Values
@@ -64,14 +69,14 @@ ingressNginx:
   enable: false
 
 # Karpenter Values
-karpenter: 
+karpenter:
   enable: false
   serviceAccountName:
   controllerClusterEndpoint:
   awsDefaultInstanceProfile:
 
 # Keda Values
-keda: 
+keda:
   enable: false
   serviceAccountName:
 
@@ -96,7 +101,7 @@ ondat:
 prometheus:
   enable: false
   serviceAccountName:
-  roleArn: 
+  roleArn:
   ampWorkspaceUrl:
 
 # Metrics Server Values
@@ -112,11 +117,11 @@ traefik:
   enable: false
 
 # VPA Values
-vpa: 
+vpa:
   enable: false
 
 # Yunikorn Values
-yunikorn: 
+yunikorn:
   enable: false
 
 # Argo Rollout Values
