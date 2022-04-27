@@ -26,3 +26,8 @@ output "managed_node_groups" {
   description = "EKS Managed node groups"
   value       = module.eks_blueprints.managed_node_groups
 }
+
+output "self_managed_node_group_autoscaling_groups" {
+  description = "EKS self-managed node group autoscaling groups"
+  value       = module.eks_blueprints.self_managed_node_group_autoscaling_groups
+}

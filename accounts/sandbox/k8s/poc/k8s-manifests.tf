@@ -6,6 +6,7 @@ module "k8s-addons" {
 
   eks_cluster_id               = local.eks_cluster_id
   eks_worker_security_group_id = local.eks_worker_security_group_id
+  auto_scaling_group_names     = local.auto_scaling_group_names
 
   // ----EKS Managed Add-ons----
   //
@@ -53,6 +54,9 @@ module "k8s-addons" {
     version          = "1.4.1"
   }
 
+  // This will only show up as enabled
+  // if there are self-managed node groups
+  // in: local.self_managed_node_group_autoscaling_groups
   enable_aws_node_termination_handler = true
   aws_node_termination_handler_helm_config = {
     version          = "0.18.2"
@@ -74,6 +78,7 @@ module "k8s-addons" {
   }
 
   // Note: This addon does not currently work in EKS 1.22 (2022-04-25)
+  // See: https://github.com/aws-ia/terraform-aws-eks-blueprints/issues/463
   enable_kubernetes_dashboard         = true
   kubernetes_dashboard_helm_config = {
     version          = "5.4.1"
