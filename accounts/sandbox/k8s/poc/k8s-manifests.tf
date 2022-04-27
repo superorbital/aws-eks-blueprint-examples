@@ -14,8 +14,7 @@ module "k8s-addons" {
 
   enable_amazon_eks_coredns    = true
   amazon_eks_coredns_config    = {
-    // We might need an older version of some of these EKS addons,
-    // if we weren't using the latest EKS k8s version
+    // If we need or want a specific version of an EKS addons.
     //addon_version              = "v1.8.3-eksbuild.1"
   }
   
@@ -55,6 +54,9 @@ module "k8s-addons" {
   }
 
   enable_aws_node_termination_handler = true
+  aws_node_termination_handler_helm_config = {
+    version          = "0.18.2"
+  }
 
   enable_cluster_autoscaler           = true
   cluster_autoscaler_helm_config = {
