@@ -63,6 +63,11 @@ module "k8s-addons" {
     version          = "9.18.0"
   }
 
+  enable_ingress_nginx = true
+  ingress_nginx_helm_config = {
+    version          = "4.1.0"
+  }
+
   enable_prometheus                   = true
   prometheus_helm_config = {
     version          = "15.8.5"
