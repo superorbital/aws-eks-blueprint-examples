@@ -6,7 +6,7 @@ module "k8s-addons" {
 
   eks_cluster_id               = local.eks_cluster_id
   eks_worker_security_group_id = local.eks_worker_security_group_id
-  auto_scaling_group_names     = local.self_managed_node_group_autoscaling_groups
+  auto_scaling_group_names     = local.auto_scaling_group_names
 
   // ----EKS Managed Add-ons----
   //
