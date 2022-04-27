@@ -10,6 +10,13 @@
       - [Order of Operations](#order-of-operations)
     - [AWS Authentication](#aws-authentication)
     - [ArgoCD](#argocd)
+    - [Addons (via ArgoCD)](#addons-via-argocd)
+      - [Kubernetes Dashboard](#kubernetes-dashboard)
+      - [Prometheus](#prometheus)
+    - [Workloads (via ArgoCD)](#workloads-via-argocd)
+      - [Team Riker (Guestbook)](#team-riker-guestbook)
+      - [Team Burnham (Nginx)](#team-burnham-nginx)
+      - [Team Carmen (Geolocation API)](#team-carmen-geolocation-api)
   - [Troubleshooting](#troubleshooting)
     - [EKS Issues](#eks-issues)
     - [Terraform Issues](#terraform-issues)
@@ -61,16 +68,86 @@ Ideally, you should pass in a pre-made ArgoCD password, but for the moment, you 
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 ```
 
-- Forward a local port to the ArgoCD UI
+- Forward a local port to the ArgoCD Server service
 
 ```bash
-kubectl port-forward svc/argo-cd-argocd-server -n argocd 8080:443
+kubectl port-forward -n argocd svc/argo-cd-argocd-server 8080:443
 ```
 
 - Open up a web browser and navigate to:
   - <https://127.0.0.1:8080/>
     - **username**: admin
     - **password**: _see previous command above to get this value_
+
+### Addons (via ArgoCD)
+
+#### Kubernetes Dashboard
+
+- Forward a local port to the Kubernetes Dashboard service
+
+```bash
+kubectl port-forward -n kube-system svc/kubernetes-dashboard 8081:443
+```
+
+- Grab a current valid token for the cluster.
+  - If you have `jq` installed locally you can use the output from:
+    - `aws --profile=sandbox eks get-token --cluster-name the-a-team-sbox-poc-eks | jq -r '.["status"]["token"]'`
+  - If not, you can use the token value from this command:
+    - `aws --profile=sandbox eks get-token --cluster-name the-a-team-sbox-poc-eks`
+  
+- Open up a web browser and navigate to:
+  - <https://127.0.0.1:8081/>
+
+- To authenticate select token, and provide the token from the previous command.
+
+#### Prometheus
+
+- Forward a local port to the Prometheus Server service
+
+```bash
+kubectl port-forward -n prometheus svc/prometheus-server 8082:80
+```
+
+- Open up a web browser and navigate to:
+  - <http://127.0.0.1:8082/>
+
+### Workloads (via ArgoCD)
+
+#### Team Riker (Guestbook)
+
+- Forward a local port to the Guestbook UI service
+
+```bash
+kubectl port-forward -n team-riker svc/guestbook-ui 8090:80
+```
+
+- Open up a web browser and navigate to:
+  - <http://127.0.0.1:8090/>
+
+#### Team Burnham (Nginx)
+
+- Forward a local port to the Nginx service
+
+```bash
+kubectl port-forward -n team-burnham svc/nginx 8091:80
+```
+
+- Open up a web browser and navigate to:
+  - <http://127.0.0.1:8091/>
+
+#### Team Carmen (Geolocation API)
+
+- Forward a local port to the Nginx service
+
+```bash
+kubectl port-forward -n geolocationapi svc/geolocationapi 8092:5000
+```
+
+- Open up a web browser and navigate to:
+  - <http://127.0.0.1:8092/api/v1/GeoLocation/42.42.42.42>
+- or run: `curl -X GET "http://127.0.0.1:8092/api/v1/GeoLocation/42.42.42.42"`
+
+- **See**: <https://github.com/CarmenAPuccio/GeoLocationAPI>
 
 ## Troubleshooting
 
