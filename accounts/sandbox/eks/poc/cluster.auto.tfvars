@@ -1,4 +1,4 @@
-cluster_version        = "1.22"
+cluster_version        = "1.21"
 zone                   = "poc"
 
 cluster_kms_key_additional_admin_arns = []

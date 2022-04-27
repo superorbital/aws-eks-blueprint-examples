@@ -81,7 +81,7 @@ kubectl port-forward svc/argo-cd-argocd-server -n argocd 8080:443
     - There are various reasons that this can happen, but some of the most likely reasons for this issue, are:
       - The subnets that contain the EC2 instances do not have internet access.
       - The user-data script failed to run properly.
-        - This can sometimes manifest as nodes that have successfully join the Kubernetes cluster, because the bootstrap.sh script in the `user-data` ran successfully, but the node group still reports `Create failed`, because the something else in the user-data script produced an error.
+        - This can sometimes manifest as nodes that have successfully joined the Kubernetes cluster, because the bootstrap.sh script in the `user-data` ran successfully, but the node group still reports `Create failed`, because the something else in the user-data script produced an error.
   - **Solution**
     - Make sure that you EC2 instances can reach the `eks.amazonaws.com` endpoints.
     - Make sure that the `user-data` script is not erroring out on the node and that the bootstrap script is run last (and only once).
