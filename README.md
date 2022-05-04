@@ -34,7 +34,7 @@
 ### Terraform
 
 - The AWS EKS blueprint modules use a few experimental `terraform` features. Terraform will produce a warning that makes this clear to the user.
-- For simplicity sake within this repo, we are using various `*.atuo.tfvars` files to provide some global variables to multiple underlying directories. [Hashicorp prefers that you define `TF_VAR_*` environment variables for this purpose instead](https://github.com/hashicorp/terraform/issues/22004). Because of this you will see some warnings from `terraform` about unused variables, you can make them a much less noisy, by passing adding the `-compact-warnings` argument to your `terraform` commands.
+- For simplicity sake within this repo, we are using various `*.auto.tfvars` files to provide some global variables to multiple underlying directories. [Hashicorp prefers that you define `TF_VAR_*` environment variables for this purpose instead](https://github.com/hashicorp/terraform/issues/22004). Because of this you will see some warnings from `terraform` about unused variables, you can make them a much less noisy, by passing adding the `-compact-warnings` argument to your `terraform` commands.
 
 #### Order of Operations
 
