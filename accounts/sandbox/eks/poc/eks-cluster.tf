@@ -1,11 +1,5 @@
 module "eks_blueprints" {
-  //source  = "github.com/aws-ia/terraform-aws-eks-blueprints?ref=34921232356fb69b5a41094246d488c37c596d97"
-
-  // FIXME:
-  // We are using this fork at the moment due to this bug:
-  // https://github.com/aws-ia/terraform-aws-eks-blueprints/issues/428
-  // We will switch back soon after the related PR is merged.
-  source = "github.com/spkane/terraform-aws-eks-blueprints?ref=mng-launch-templates"
+  source  = "github.com/aws-ia/terraform-aws-eks-blueprints?ref=f50247cb791782745315d9073509f8c5d0928dff"
 
   org               = var.org
   tenant            = var.tenant
@@ -70,4 +64,41 @@ module "eks_blueprints" {
       source_cluster_security_group = true
     }
   }
+}
+
+# Tag the VPC and subnets for this cluster
+# Ensure that the VPC module will not remove these
+# by seting the AWS provider to ignore all kubernetes.io/ tags.
+resource "aws_ec2_tag" "vpc_tag" {
+  resource_id = local.vpc_id
+  key         = "kubernetes.io/cluster/${module.eks_blueprints.eks_cluster_id}"
+  value       = "shared"
+}
+
+resource "aws_ec2_tag" "private_subnet_tag" {
+  for_each    = toset(local.private_subnet_ids)
+  resource_id = each.value
+  key         = "kubernetes.io/role/elb"
+  value       = "1"
+}
+
+resource "aws_ec2_tag" "private_subnet_cluster_tag" {
+  for_each    = toset(local.private_subnet_ids)
+  resource_id = each.value
+  key         = "kubernetes.io/cluster/${module.eks_blueprints.eks_cluster_id}"
+  value       = "shared"
+}
+
+resource "aws_ec2_tag" "public_subnet_tag" {
+  for_each    = toset(local.public_subnet_ids)
+  resource_id = each.value
+  key         = "kubernetes.io/role/elb"
+  value       = "1"
+}
+
+resource "aws_ec2_tag" "public_subnet_cluster_tag" {
+  for_each    = toset(local.public_subnet_ids)
+  resource_id = each.value
+  key         = "kubernetes.io/cluster/${module.eks_blueprints.eks_cluster_id}"
+  value       = "shared"
 }
