@@ -2,7 +2,7 @@
 // https://github.com/aws-ia/terraform-aws-eks-blueprints/blob/main/docs/add-ons/index.md
 //
 module "k8s-addons" {
-  source  = "github.com/aws-ia/terraform-aws-eks-blueprints//modules/kubernetes-addons?ref=34921232356fb69b5a41094246d488c37c596d97"
+  source  = "github.com/aws-ia/terraform-aws-eks-blueprints//modules/kubernetes-addons?ref=f50247cb791782745315d9073509f8c5d0928dff"
 
   eks_cluster_id               = local.eks_cluster_id
   eks_worker_security_group_id = local.eks_worker_security_group_id
